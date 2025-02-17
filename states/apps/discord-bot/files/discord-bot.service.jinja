@@ -6,8 +6,8 @@ After=network.target
 User=ubuntu
 Group=ubuntu
 WorkingDirectory=/opt/discord_bot
-# The virtual environment’s Python interpreter is used to run the bot.
 ExecStart=/opt/discord_bot/venv/bin/python -u /opt/discord_bot/main.py
+Environment="DISCORD_TOKEN={{ discord_token }}"
 Restart=on-failure
 RestartSec=10
 
