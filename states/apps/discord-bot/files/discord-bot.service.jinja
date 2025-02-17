@@ -6,10 +6,13 @@ After=network.target
 User=ubuntu
 Group=ubuntu
 WorkingDirectory=/opt/discord_bot
-ExecStart=/opt/discord_bot/venv/bin/python -u /opt/discord_bot/main.py >> /var/log/discord/discord_time.log 2>&1
+ExecStart=/opt/discord_bot/venv/bin/python -u /opt/discord_bot/main.py
 Environment="DISCORD_TOKEN={{ discord_token }}"
 Restart=on-failure
 RestartSec=10
+
+StandardOutput=append:/var/log/discord/discord_$(date +%Y%m%d%H).log
+StandardError=append:/var/log/discord/discord_$(date +%Y%m%d%H).log
 
 [Install]
 WantedBy=multi-user.target
