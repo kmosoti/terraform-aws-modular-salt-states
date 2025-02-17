@@ -10,6 +10,7 @@
   cmd.run:
     - name: |
         python3 -m venv /opt/discord_bot/venv &&
+        /opt/discord_bot/venv/bin/python -m ensurepip --upgrade &&
         /opt/discord_bot/venv/bin/pip install -r /opt/discord_bot/requirements.txt
     - unless: test -f /opt/discord_bot/venv/bin/python
     - require:
