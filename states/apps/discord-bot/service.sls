@@ -4,7 +4,7 @@
     - target: /opt/discord_bot
     - force_reset: True
     - require:
-      - pkg: common.git-install  # This will look for the state defined in common/git.sls
+      - pkg: common.git-install
 
 /etc/systemd/system/discord-bot.service:
   file.managed:
@@ -16,7 +16,7 @@
     - group: root
     - mode: '0644'
     - require:
-      - pkg: git
+      - git: /opt/discord_bot
 
 discord-bot-service:
   service.running:
