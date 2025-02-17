@@ -6,6 +6,15 @@
     - require:
       - pkg: git-install
 
+/opt/discord_bot/venv:
+  cmd.run:
+    - name: |
+        python3 -m venv /opt/discord_bot/venv &&
+        /opt/discord_bot/venv/bin/pip install -r /opt/discord_bot/requirements.txt
+    - unless: test -f /opt/discord_bot/venv/bin/python
+    - require:
+      - git: /opt/discord_bot
+
 /etc/systemd/system/discord-bot.service:
   file.managed:
     - source: salt://apps/discord-bot/files/discord-bot.service.jinja
@@ -15,8 +24,9 @@
     - user: root
     - group: root
     - mode: '0644'
-    - require:
-      - git: /opt/discord_bot
+    - require: 
+        - folder: /opt/discord_bot/venv
+
 
 discord-bot-service:
   service.running:
