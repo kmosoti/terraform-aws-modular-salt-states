@@ -4,7 +4,7 @@
     - target: /opt/discord_bot
     - force_reset: True
     - require:
-      - pkg: common.git-install
+      - pkg: git-install
 
 /etc/systemd/system/discord-bot.service:
   file.managed:
