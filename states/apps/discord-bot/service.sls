@@ -25,7 +25,7 @@
     - group: root
     - mode: '0644'
     - require: 
-        - folder: /opt/discord_bot/venv
+        - cmd: /opt/discord_bot/venv
 
 
 discord-bot-service:
