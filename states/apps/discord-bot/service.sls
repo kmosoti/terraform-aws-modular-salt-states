@@ -1,13 +1,11 @@
-# Clone or update the Discord bot repository
 /opt/discord_bot:
   git.latest:
     - name: https://github.com/kmosoti/dave-discord-bot.git
     - target: /opt/discord_bot
     - force_reset: True
     - require:
-      - pkg: git
+      - pkg: git  # This will look for the state defined in common/git.sls
 
-# Manage the systemd service file using a Jinja template
 /etc/systemd/system/discord-bot.service:
   file.managed:
     - source: salt://apps/discord-bot/files/discord-bot.service.jinja
@@ -18,9 +16,8 @@
     - group: root
     - mode: '0644'
     - require:
-      - git: /opt/discord_bot
+      - pkg: git
 
-# Ensure the Discord bot service is running and enabled
 discord-bot-service:
   service.running:
     - name: discord-bot
