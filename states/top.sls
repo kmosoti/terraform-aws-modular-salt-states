@@ -1,5 +1,5 @@
 base:
   '*':
     - common
-    - roles
-    - apps
+  'discord-bot':
+    - apps.discord-bot  
