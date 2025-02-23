@@ -8,7 +8,7 @@ Group=ubuntu
 WorkingDirectory=/opt/discord_bot
 # Create the log directory and ensure ownership is set for ubuntu
 ExecStartPre=/bin/bash -c 'sudo mkdir -p /var/log/discord && sudo chown ubuntu:ubuntu /var/log/discord'
-ExecStart=/bin/bash -c 'exec /opt/discord_bot/venv/bin/python -u /opt/discord_bot/main.py >> /var/log/discord/discord_$(date +%%Y%%m%%d%%H).log 2>&1'
+ExecStart=/bin/bash -c 'exec /opt/discord_bot/venv/bin/python -u /opt/discord_bot/main.py >> /var/log/discord/discord_$(date +%%Y%%m%%d).log 2>&1'
 Restart=on-failure
 RestartSec=10
 

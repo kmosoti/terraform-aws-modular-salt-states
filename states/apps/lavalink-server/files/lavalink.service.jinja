@@ -9,7 +9,7 @@ WorkingDirectory=/opt/lavalink
 # Ensure the log directory exists and has proper ownership.
 ExecStartPre=/bin/bash -c 'sudo mkdir -p /var/log/lavalink && sudo chown ubuntu:ubuntu /var/log/lavalink'
 # Start Lavalink using Java. Adjust the java executable path if needed.
-ExecStart=/bin/bash -c 'exec /usr/bin/java -jar /opt/lavalink/lavalink.jar >> /var/log/lavalink/lavalink_$(date +%%Y%%m%%d%%H).log 2>&1'
+ExecStart=/bin/bash -c 'exec /usr/bin/java -jar /opt/lavalink/lavalink.jar >> /var/log/lavalink/lavalink_$(date +%%Y%%m%%d).log 2>&1'
 # Only set the essential environment variables using pillar data.
 Environment="LAVALINK_SERVER_HOST={{ salt['pillar.get']('config', {}).get('LAVALINK', {}).get('LAVALINK_HOST', 'http://127.0.0.1') }}"
 Environment="LAVALINK_SERVER_PORT={{ salt['pillar.get']('config', {}).get('LAVALINK', {}).get('LAVALINK_PORT', 2333) }}"
