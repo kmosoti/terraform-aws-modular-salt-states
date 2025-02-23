@@ -5,7 +5,7 @@
     - group: ubuntu
     - mode: 755
     - require:
-      - service: java-install  # Ensure Java is installed
+      - pkg: java-install  # Ensure Java is installed
 
 # Download the Lavalink JAR if it's not already present
 download-lavalink-jar:
