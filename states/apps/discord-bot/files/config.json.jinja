@@ -1,0 +1,11 @@
+{
+  "DISCORD": {
+    "DISCORD_TOKEN": "{{ pillar.get('config', {}).get('DISCORD', {}).get('DISCORD_TOKEN', 'MISSING_TOKEN') }}",
+    "GUILD_IDS": {{ pillar.get('config', {}).get('DISCORD', {}).get('GUILD_IDS', []) | tojson }}
+  },
+  "LAVALINK": {
+    "LAVALINK_HOST": "{{ pillar.get('config', {}).get('LAVALINK', {}).get('LAVALINK_HOST', 'http://127.0.0.1') }}",
+    "LAVALINK_PORT": {{ pillar.get('config', {}).get('LAVALINK', {}).get('LAVALINK_PORT', 2333) }},
+    "LAVALINK_PASSWORD": "{{ pillar.get('config', {}).get('LAVALINK', {}).get('LAVALINK_PASSWORD', 'youshallnotpass') }}"
+  }
+}

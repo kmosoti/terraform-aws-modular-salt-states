@@ -6,12 +6,22 @@
     - require:
       - pkg: git-install
 
+/opt/discord_bot/data/config.json:
+  file.managed:
+    - source: salt://apps/discord-bot/files/config.json.jinja
+    - template: jinja
+    - user: ubuntu
+    - group: ubuntu
+    - mode: '0644'
+    - require:
+      - git: /opt/discord_bot
+
 /opt/discord_bot/venv:
   cmd.run:
     - name: |
         python3 -m venv /opt/discord_bot/venv &&
         /opt/discord_bot/venv/bin/python -m ensurepip --upgrade &&
-        /opt/discord_bot/venv/bin/pip install -r /opt/discord_bot/requirements.txt
+        /opt/discord_bot/venv/bin/python -m pip install -r /opt/discord_bot/requirements.txt
     - unless: test -f /opt/discord_bot/venv/bin/python
     - require:
       - git: /opt/discord_bot
@@ -20,14 +30,12 @@
   file.managed:
     - source: salt://apps/discord-bot/files/discord-bot.service.jinja
     - template: jinja
-    - context:
-        discord_token: {{ pillar.get("discord", {}).get("token", "MISSING_TOKEN") }}
     - user: root
     - group: root
     - mode: '0644'
     - require: 
         - cmd: /opt/discord_bot/venv
-
+        - service: lavalink-service  # This ensures the Lavalink server is running before deploying the Discord service file
 
 discord-bot-service:
   service.running:
@@ -35,3 +43,5 @@ discord-bot-service:
     - enable: True
     - watch:
       - file: /etc/systemd/system/discord-bot.service
+    - require:
+      - service: lavalink-service  # Dependency on Lavalink server state
