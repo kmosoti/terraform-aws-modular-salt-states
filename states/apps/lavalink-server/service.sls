@@ -14,11 +14,10 @@ include:
 # Assumes you have your lavalink.jar stored at:
 # salt://apps/lavalink-server/files/lavalink.jar
 /opt/lavalink/lavalink.jar:
-  file.managed:
-    - source: salt://apps/lavalink-server/files/lavalink.jar
+  cmd.run:
+    - name: wget -q -O /opt/lavalink/lavalink.jar https://github.com/lavalink-devs/Lavalink/releases/download/4.0.8/Lavalink.jar
+    - unless: test -f /opt/lavalink/lavalink.jar
     - user: ubuntu
-    - group: ubuntu
-    - mode: 644
     - require:
       - file: /opt/lavalink
 
