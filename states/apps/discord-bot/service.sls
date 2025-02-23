@@ -21,7 +21,8 @@
     - name: |
         python3 -m venv /opt/discord_bot/venv &&
         /opt/discord_bot/venv/bin/python -m ensurepip --upgrade &&
-        /opt/discord_bot/venv/bin/python -m pip install -r /opt/discord_bot/requirements.txt
+        /opt/discord_bot/venv/bin/python -m pip install -r /opt/discord_bot/requirements.txt &&
+        /opt/discord_bot/venv/bin/python -m pip install wavelink==3.4.1 --no-deps
     - unless: test -f /opt/discord_bot/venv/bin/python
     - require:
       - git: /opt/discord_bot
