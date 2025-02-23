@@ -7,7 +7,7 @@ User=ubuntu
 Group=ubuntu
 WorkingDirectory=/opt/lavalink
 # Ensure the log directory exists and has proper ownership.
-ExecStartPre=/bin/bash -c 'mkdir -p /var/log/lavalink && chown ubuntu:ubuntu /var/log/lavalink'
+ExecStartPre=/bin/bash -c 'sudo mkdir -p /var/log/lavalink && chown ubuntu:ubuntu /var/log/lavalink'
 # Start Lavalink using Java. Adjust the java executable path if needed.
 ExecStart=/bin/bash -c 'exec /usr/bin/java -jar /opt/lavalink/lavalink.jar >> /var/log/lavalink/lavalink_$(date +%%Y%%m%%d%%H).log 2>&1'
 # Only set the essential environment variables using pillar data.
