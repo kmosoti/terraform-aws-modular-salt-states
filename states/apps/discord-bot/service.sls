@@ -18,14 +18,21 @@
 
 /opt/discord_bot/venv:
   cmd.run:
-    - name: |
-        python3 -m venv /opt/discord_bot/venv &&
-        /opt/discord_bot/venv/bin/python -m ensurepip --upgrade &&
-        /opt/discord_bot/venv/bin/python -m pip install -r /opt/discord_bot/requirements.txt &&
-        /opt/discord_bot/venv/bin/python -m pip install wavelink==3.4.1 --no-deps
-    - unless: test -f /opt/discord_bot/venv/bin/python
+    - name: python3 -m venv /opt/discord_bot/venv
+    - unless: test -d /opt/discord_bot/venv
     - require:
       - git: /opt/discord_bot
+
+install_requirements:
+  cmd.run:
+    - name: |
+        /opt/discord_bot/venv/bin/python -m ensurepip --upgrade &&
+        /opt/discord_bot/venv/bin/python -m pip install --upgrade pip &&
+        /opt/discord_bot/venv/bin/python -m pip install -r /opt/discord_bot/requirements.txt &&
+        /opt/discord_bot/venv/bin/python -m pip install wavelink==3.4.1 --no-deps
+    - require:
+      - cmd: /opt/discord_bot/venv
+
 
 /etc/systemd/system/discord-bot.service:
   file.managed:
