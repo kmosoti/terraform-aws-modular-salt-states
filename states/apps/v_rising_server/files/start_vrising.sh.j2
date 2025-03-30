@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export XDG_RUNTIME_DIR="{{ pillar['vrising']['xdg_runtime'] }}"
+
+exec xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' \
+  wine "{{ pillar['vrising']['install_dir'] }}/{{ pillar['vrising']['executable'] }}" \
+  -persistentDataPath "{{ pillar['vrising']['persistent_data'] }}" \
+  -serverName "{{ pillar['vrising']['service']['display_name'] }}" \
+  -saveName "{{ pillar['vrising']['service']['save_name'] }}" \
+  -logFile "{{ pillar['vrising']['log_file'] }}"
