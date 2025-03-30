@@ -22,6 +22,5 @@ install_wine_stack:
         - wine64
         - wine32
         - libwine
-        - libwine:i386
         - fonts-wine
         - xvfb
