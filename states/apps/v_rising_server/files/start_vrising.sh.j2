@@ -1,10 +1,27 @@
 #!/bin/bash
 
 export XDG_RUNTIME_DIR="{{ pillar['vrising']['xdg_runtime'] }}"
+export WINEARCH=win64
 
+INSTALL_DIR="{{ pillar['vrising']['install_dir'] }}"
+EXECUTABLE="{{ pillar['vrising']['executable'] }}"
+DATA_PATH="{{ pillar['vrising']['persistent_data'] }}"
+SERVER_NAME="{{ pillar['vrising']['service']['display_name'] }}"
+SAVE_NAME="{{ pillar['vrising']['service']['save_name'] }}"
+
+LOG_DIR="$INSTALL_DIR/logs"
+DATE=$(date +'%F')
+UNITY_LOG="$LOG_DIR/unity-$DATE.log"
+STDOUT_LOG="$LOG_DIR/stdout-$DATE.log"
+
+cd "$INSTALL_DIR"
+mkdir -p "$LOG_DIR"
+
+# Run the server, split Unity log and Wine/stdout output
 exec xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' \
-  wine "{{ pillar['vrising']['install_dir'] }}/{{ pillar['vrising']['executable'] }}" \
-  -persistentDataPath "{{ pillar['vrising']['persistent_data'] }}" \
-  -serverName "{{ pillar['vrising']['service']['display_name'] }}" \
-  -saveName "{{ pillar['vrising']['service']['save_name'] }}" \
-  -logFile "{{ pillar['vrising']['log_file'] }}"
+  wine "$INSTALL_DIR/$EXECUTABLE" \
+  -persistentDataPath "$DATA_PATH" \
+  -serverName "$SERVER_NAME" \
+  -saveName "$SAVE_NAME" \
+  -logFile "$UNITY_LOG" \
+  2>&1 | tee -a "$STDOUT_LOG"
