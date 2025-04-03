@@ -1,7 +1,6 @@
 base:
   '*':
     - common.git-install
-    - users
   'discord-bot':
     - apps.discord-bot
     - apps.lavalink-server
@@ -14,3 +13,4 @@ base:
     - common.wine-install
     - common.xdg-runtime
     - common.user-create
+    - users
