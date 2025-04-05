@@ -20,7 +20,6 @@ install_wine_stack:
     - pkgs:
         - wine
         - wine64
-        - wine32
         - libwine
         - fonts-wine
         - xvfb
