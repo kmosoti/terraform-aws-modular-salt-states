@@ -22,6 +22,7 @@
     - unless: test -d /opt/discord_bot/venv
     - require:
       - git: /opt/discord_bot
+      - pkg: python-install
 
 install_requirements:
   cmd.run:
