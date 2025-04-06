@@ -21,4 +21,5 @@ install_vrising:
         +quit
     - runas: {{ user }}
     - require:
+      - sls: common.steamcmd-install
       - file: /opt/game_servers/vrising_server/config_data
