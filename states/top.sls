@@ -13,4 +13,4 @@ base:
     - common.wine-install
     - common.xdg-runtime
     - common.user-create
-    - users
+    - users.steam_server_manager
